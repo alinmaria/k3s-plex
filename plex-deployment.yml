@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plex-deployment
+  namespace: plex
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: plex
+  template:
+    metadata:
+      labels:
+        app: plex
+    spec:
+      containers:
+      - name: plex
+        image: lscr.io/linuxserver/plex:latest
+        env:
+        - name: VERSION
+          value: "docker"
+        ports:
+        - containerPort: 32400
+          protocol: TCP
+          name: tcp32400
+        - containerPort: 8324
+          protocol: TCP
+          name: tcp8324
+        - containerPort: 32469
+          protocol: TCP
+          name: tcp32469
+        - containerPort: 1900
+          protocol: UDP
+          name: udp1900
+        - containerPort: 5353
+          protocol: UDP
+          name: udp5353
+        - containerPort: 32410
+          protocol: UDP
+          name: udp32410
+        - containerPort: 32412
+          protocol: UDP
+          name: udp32412
+        - containerPort: 32413
+          protocol: UDP
+          name: udp32413
+        - containerPort: 32414
+          protocol: UDP
+          name: udp32414
+        volumeMounts:
+          - name: plex-config
+            mountPath: /config
+          - name: plex-media
+            mountPath: /movies
+            subPath: movies
+          - name: plex-media
+            mountPath: /tv
+            subPath: series
+      volumes:
+      - name: plex-media
+        hostPath:
+          path: /nfs-data/media/
+          type: DirectoryOrCreate
+      - name: plex-config
+        hostPath:
+          path: /data/plex
+          type: DirectoryOrCreate
+      
