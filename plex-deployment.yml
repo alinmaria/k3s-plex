@@ -17,8 +17,6 @@ spec:
       - name: plex
         image: lscr.io/linuxserver/plex:latest
         env:
-        - name:ADVERTISE_IP
-          value: "http://10.100.99.132:32400"
         - name: VERSION
           value: "docker"
         ports:
@@ -67,4 +65,3 @@ spec:
         hostPath:
           path: /data/plex
           type: DirectoryOrCreate
-      
