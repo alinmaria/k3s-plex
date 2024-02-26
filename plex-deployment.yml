@@ -69,5 +69,5 @@ spec:
           type: DirectoryOrCreate
       - name: plex-config
         hostPath:
-          path: /data/plex
+          path: /nfs-ssd/plex
           type: DirectoryOrCreate
