@@ -17,6 +17,10 @@ spec:
       - name: plex
         image: lscr.io/linuxserver/plex:latest
         env:
+        - name: PUID
+          value: "65534"
+        - name: PGID
+          value: "65534"
         - name: ADVERTISE_IP
           value: "http://10.100.99.132:32400"
         - name: VERSION
